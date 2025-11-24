@@ -1,3 +1,3 @@
-# CircleCI Koans 01
+# CircleCI Koans 03
 
-Basic Hello, World!
+Connecting to a database!

@@ -1,14 +1,19 @@
 version: 2.1
 
-workflows:
-  build:
-    jobs:
-      - build
-
 jobs:
   build:
     docker:
       - image: cimg/base:2025.11
+      - image: cimg/postgres:18.0
+        environment:
+          POSTGRES_USER: postgres
     steps:
-      - checkout
-      - run: echo "Hello, World!"
+      - checkout # check out the code in the project directory
+      - run:
+          name: Wait for db # If no database is found in 1 minute the job will fail.
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+workflows:
+  build-workflow:
+    jobs:
+      - build

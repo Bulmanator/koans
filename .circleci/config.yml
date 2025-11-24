@@ -1,0 +1,14 @@
+version: 2.1
+
+workflows:
+  build:
+    jobs:
+      - build
+
+jobs:
+  build:
+    docker:
+      - image: cimg/base:2025.11
+    steps:
+      - checkout
+      - run: echo "Hello, World!"

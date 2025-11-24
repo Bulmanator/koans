@@ -1,3 +1,3 @@
-# CircleCI Koans 01
+# CircleCI Koans 02
 
-Basic Hello, World!
+YAML configuration

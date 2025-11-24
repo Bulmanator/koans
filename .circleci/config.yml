@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build:
-    docker: 
+    docker:
       - image: cimg/base:2025.10
     steps:
       - checkout
@@ -13,7 +13,7 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-
-      - run: mkdir ~/cache/
+      - run: mkdir -p ~/cache/
       - run: echo "testfile" > ~/cache/log.txt
       - save_cache:
           key: v1-dependencies-
@@ -22,5 +22,5 @@ jobs:
 
 workflows:
   build-workflow:
-    jobs: 
+    jobs:
       - build

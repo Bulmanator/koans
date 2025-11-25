@@ -1,19 +1,30 @@
 version: 2.1
 
-orbs:
-  ruby: circleci/ruby@2.6
-
 jobs:
   build:
     docker:
-      - image: cimg/base:2022.10
+      - image: cimg/node:25.2
     steps:
       - checkout
-      - ruby/install:
-          version: '2.6.3'
-      - run: ruby -v
+      # Uncomment below and set the key to point to the correct cache
+      - restore_cache:
+          name: Restore Yarn Package Json Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      # cimg/node includes yarn v1 so change the yarn install command to:
+      #   yarn install --frozen-lockfile --cache-folder ~/.cache/yarn [?]
+      # from docs: https://circleci.com/docs/guides/optimize/caching/#basic-example-of-yarn-package-manager-caching
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+      # Uncomment below and set the key to point to the correct cache
+      - save_cache:
+          name: Save Yarn Package Json Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
 
 workflows:
-  run-jobs:
+  cache-save-and-restore:
     jobs:
       - build

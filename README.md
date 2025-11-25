@@ -1,3 +1,3 @@
-# CircleCI Koans 01
+# CircleCI Koans 06
 
-Basic Hello, World!
+Caching dependencies!

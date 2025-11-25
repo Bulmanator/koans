@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Parallel Tests
           command: |
-            find 'src/' -name "test_*" | circleci tests run --command "xargs -I{} bash {}" --split-by=file
+            find 'src/' -name "test_*" | circleci tests run --command "xargs -I{} bash {}" --split-by=name
 workflows:
   test-workflow:
     jobs:

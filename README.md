@@ -1,3 +1,3 @@
-# CircleCI Koans 03
+# CircleCI Koans 04
 
-Connecting to a database!
+Using parallelism!

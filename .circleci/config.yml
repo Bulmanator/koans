@@ -1,14 +1,28 @@
 version: 2.1
 
-workflows:
-  build:
-    jobs:
-      - build
+orbs:
+  build-tools: circleci/build-tools@3.0.0
 
 jobs:
   build:
     docker:
       - image: cimg/base:2025.11
+
     steps:
-      - checkout
-      - run: echo "Hello, World!"
+      - build-tools/test-results:
+          data-dir: ~/project/results
+          upload: false # Don't cheat!
+      - store_test_results:
+          path: ~/project/results
+      - store_artifacts:
+          path: ~/project/results/test_results.xml
+          destination: build
+
+# Add below this line, do not modify above
+
+# Add above this line, do not modify below
+
+workflows:
+  build-workflow:
+    jobs:
+      - build

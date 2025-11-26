@@ -1,3 +1,3 @@
-# CircleCI Koans 01
+# CircleCI Koans 07
 
-Basic Hello, World!
+Showing a testing summary!

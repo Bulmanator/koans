@@ -10,17 +10,18 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Json Cache
           keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
+            - v1-yarn-packages-{{ checksum "yarn.lock" }}
       # cimg/node includes yarn v1 so change the yarn install command to:
       #   yarn install --frozen-lockfile --cache-folder ~/.cache/yarn [?]
       # from docs: https://circleci.com/docs/guides/optimize/caching/#basic-example-of-yarn-package-manager-caching
+      # this seems to work anyway
       - run:
           name: Install Dependencies
           command: yarn install --immutable
       # Uncomment below and set the key to point to the correct cache
       - save_cache:
           name: Save Yarn Package Json Cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
+          key: v1-yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 

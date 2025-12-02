@@ -1,3 +1,3 @@
-# CircleCI Koans 07
+# CircleCI Koans 08
 
-Showing a testing summary!
+Filtering branches!

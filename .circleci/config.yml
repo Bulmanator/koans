@@ -1,28 +1,36 @@
 version: 2.1
 
-orbs:
-  build-tools: circleci/build-tools@3.0.0
-
 jobs:
   build:
     docker:
-      - image: cimg/base:2025.11
-
+      - image: cimg/base:2022.10
     steps:
-      - build-tools/test-results:
-          data-dir: ~/project/results
-          upload: false # Don't cheat!
-      - store_test_results:
-          path: ~/project/results
-      - store_artifacts:
-          path: ~/project/results/test_results.xml
-          destination: build
-
-# Add below this line, do not modify above
-
-# Add above this line, do not modify below
+      - checkout
+      - run: echo "Building complete"
+  test-production:
+    docker:
+      - image: cimg/base:2022.10
+    steps:
+      - checkout
+      - run: echo "Testing complete"
+  deploy:
+    docker:
+      - image: cimg/base:2022.10
+    steps:
+      - checkout
+      - run: echo "Deploy complete"
 
 workflows:
-  build-workflow:
+  build-test-and-deploy:
     jobs:
       - build
+      - test-production:
+          requires:
+            - build
+      - deploy:
+          filters:
+            branches:
+              only:
+                - production
+          requires:
+            - test-production

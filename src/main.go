@@ -3,5 +3,5 @@ package main;
 import "fmt"
 
 func main() {
-	fmt.Println("Beta build");
+	fmt.Println("Alpha build v0.0.2");
 }

@@ -1,14 +1,37 @@
 version: 2.1
 
-workflows:
-  build:
-    jobs:
-      - build
-
 jobs:
   build:
     docker:
       - image: cimg/base:2025.11
     steps:
       - checkout
-      - run: echo "Hello, World!"
+      - run: echo "Building complete"
+  test:
+    docker:
+      - image: cimg/base:2025.11
+    steps:
+      - checkout
+      - run: echo "Testing complete"
+  deploy:
+    docker:
+      - image: cimg/base:2025.11
+    steps:
+      - checkout
+      - run: echo "Deploy complete"
+
+workflows:
+  build-test-and-deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^beta-.*/
+            branches:
+              ignore: /.*/

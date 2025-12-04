@@ -12,7 +12,7 @@ jobs:
         - run: cd ~/project/app && pwd && ls
           # Edit below here
         - persist_to_workspace:
-            root: app
+            root: ~/project/app
             paths: linux
 
   build-windows:
@@ -26,7 +26,7 @@ jobs:
         - run: cd ~/project/app && pwd && ls
           # Edit below here
         - persist_to_workspace:
-            root: app
+            root: ~/project/app
             paths: windows
 
   build-mac:
@@ -40,7 +40,7 @@ jobs:
         - run: cd ~/project/app && pwd && ls
           # Edit below here
         - persist_to_workspace:
-            root: app
+            root: ~/project/app
             paths: mac
 
   deploy:
@@ -48,7 +48,7 @@ jobs:
         - image: cimg/base:2025.11
       steps:
         - attach_workspace:
-            at: ~/project
+            at: ~/project/app
         - store_artifacts: # See circleci.com/docs/2.0/artifacts/ for more details.
             path: ~/project/app
             destination: apps

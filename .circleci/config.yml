@@ -7,43 +7,24 @@ jobs:
     steps:
       - checkout
       - run: echo "Building complete"
-  test-node:
+  test:
     docker:
-      - image: cimg/node:25.1.0
-    steps:
-      - run: echo "Testing complete"
-  test-node-24:
-    docker:
-      - image: cimg/node:24.2.0
-    steps:
-      - run: echo "Testing complete"
-  test-node-23:
-    docker:
-      - image: cimg/node:23.11.1
+      - image: cimg/base:2025.11
     steps:
       - run: echo "Testing complete"
   deploy:
       docker:
         - image: cimg/base:2025.11
       steps:
-        - run: echo "DEPLOYING" # Make sure all tests pass first!
+        - run: echo "DEPLOYING" # Make sure tests pass first!
 
 workflows:
   build-test-and-deploy:
     jobs:
       - build
-      - test-node:
-          requires:
-            - build
-      - test-node-24:
-          requires:
-            - build
-      - test-node-23:
+      - test:
           requires:
             - build
       - deploy:
           requires:
-            - test-node
-            - test-node-24
-            - test-node-23
-
+            - test

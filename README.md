@@ -1,3 +1,3 @@
-# CircleCI Koans 10
+# CircleCI Koans 11
 
-Workflow fanout!
+Sequential workflows!

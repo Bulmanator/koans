@@ -9,8 +9,9 @@ executors:
       image: ubuntu-2404:2025.09.1
   exe-windows:
     machine:
-      image: windows-server-2025-gui:stable
-    shell: 'powershell.exe -ExecutionPolicy Bypass'
+      image: 'windows-server-2025-gui:current'
+      resource_class: windows.medium
+      shell: 'powershell.exe -ExecutionPolicy Bypass'
   exe-macos:
     macos:
       xcode: 26.2.0

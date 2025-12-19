@@ -1,14 +1,34 @@
 version: 2.1
 
-workflows:
-  build:
-    jobs:
-      - build
+executors:
+  exe-docker:
+    docker:
+      - image: cimg/node:18.11.0
+  exe-machine:
+    machine:
+      image: ubuntu-2204:latest
+  exe-windows:
+    machine:
+      image: windows-server-2022-gui:latest
+    shell: 'powershell.exe -ExecutionPolicy Bypass'
+  exe-macos:
+    macos:
+      xcode: 26.02
 
 jobs:
   build:
-    docker:
-      - image: cimg/base:2025.11
+    parameters:
+      exe-name:
+        type: string
+        default: "docker"
+    executor: exe-<< parameters.exe-name >>
     steps:
-      - checkout
-      - run: echo "Hello, World!"
+      - run: echo "<< parameters.exe-name >> executor"
+
+workflows:
+  build-docker-workflow:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              exe-name: [ "docker", "machine", "windows", "macos" ]
